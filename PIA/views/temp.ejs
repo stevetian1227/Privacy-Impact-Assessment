@@ -1,0 +1,62 @@
+<div class="card shadow mb-5">
+    <div class="card-header py-3">
+        <p class="text-primary m-0 fw-bold">Mapping for THreats and Controls</p>
+    </div>
+    <div class="card-body">
+        <form action="/mapping" method="post">
+            <div class="row" style="position:relative;">
+                <!-- style="position:absolute; visibility:hidden;
+                can hide this for test use -->
+                <div class="col-md-6" style="position:absolute; visibility:hidden;">
+                    <div class="mb-3"><label class="form-label" for="controls"><strong>Click on the
+                                Controls to
+                                add</strong><br></label><textarea class="form-control" id="textarea" rows="4"
+                            name="controls"><%=controlTextareaValue%></textarea>
+                    </div>
+                    <div class="mb-3"></div>
+                </div>
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Controls chosen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="chosenOnes">
+                                <% for (let i = 0; i < userChoiceControls.length; i++){ %>
+                                <tr class="leftTable">
+                                    <td><%=userChoiceControls[i]%></td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Controls choices</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let i = 0; i <controls.length; i++) { %>
+                                <tr>
+                                    <td class="chooseList"><%=controls[i] %></td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm" type="submit">
+                    Save changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

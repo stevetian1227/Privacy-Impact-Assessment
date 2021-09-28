@@ -1,0 +1,87 @@
+// the function which help to remove the dataToBeRemoved from the textarea
+function removeData(wholeData, dataToBeRemoved) {
+    wholeData = wholeData.replace(dataToBeRemoved, '');
+    return wholeData;
+}
+// click on the right side and add the clicked one to the left side.
+let tableElements = document.getElementsByClassName('chooseList');
+//console.log(tableElements);
+// chosenOnes are the parent element of the left table.
+let leftTableParent = document.getElementById('chosenOnes');
+//console.log(leftTableParent);
+let dataToBeSent = document.getElementById('textarea');
+//console.log("hiddenArea");
+//console.log(dataToBeSent);
+for (let i = 0; i < tableElements.length; i++) {
+    tableElements[i].addEventListener('click',() => {
+        let clickedOne = tableElements[i].innerHTML;
+        let textnode = document.createTextNode(clickedOne);
+        dataToBeSent.value = dataToBeSent.value + clickedOne +'*';
+        let newChoice = document.createElement('tr');
+        //set class name so that can add event listeners to them later on
+        newChoice.setAttribute("class","leftTable");
+        let newCol = document.createElement('td');
+        newCol.appendChild(textnode);
+        newChoice.appendChild(newCol);
+        //console.log(newChoice);
+        // let the left side elements have the ability that when clicked the ones will disappear.
+        newChoice.addEventListener('click', () => {
+            leftTableParent.removeChild(newChoice);
+            /*
+            console.log(newChoice.innerText);
+            console.log(newChoice.innerText+'*');
+            */
+            dataToBeSent.value = (dataToBeSent.value).replace(newChoice.innerText+'*','');
+        })
+        leftTableParent.appendChild(newChoice);
+    })
+}
+
+// get the left side elements to add event listeners to them
+let leftTableElements = document.getElementsByClassName("leftTable");
+// console.log(leftTableElements);
+// for(let i = 0; i < leftTableElements.length;i++){
+//     console.log("innerText");
+//     console.log(leftTableElements[i].innerText);
+//     console.log("innerHTML");
+//     console.log(leftTableElements[i].innerHTML);
+// }
+for (let i=0;i< leftTableElements.length; i++){
+    let currentElement = leftTableElements[i];
+    currentElement.addEventListener('click', ()=>{
+        let textOfClicked = currentElement.innerText;
+        leftTableParent.removeChild(currentElement);
+        dataToBeSent.value = (dataToBeSent.value).replace(textOfClicked+'*','');
+    })
+}
+
+// get all the deleteBtn elements
+let deleteBtnElements = document.getElementsByClassName("deleteBtn");
+console.log("deleteBtnElements");
+console.log(deleteBtnElements);
+//console.log(deleteBtnElements);
+for (let i=0;i< deleteBtnElements.length;i++){
+    let currentBtn = deleteBtnElements[i];
+    let currentDeleteData = currentBtn.previousElementSibling.innerText;
+    console.log(currentDeleteData);
+    currentBtn.addEventListener('click', ()=>{
+        let newRow = document.createElement('tr');
+        let newConfirmText = document.createElement('td');
+        let confirmBtn = document.createElement('td');
+        let confirmSubmit = document.createElement('button');
+        let confirm = document.createTextNode("Confirm delete");
+        confirmSubmit.classList.add('btn','btn-primary','btn-sm');
+        confirmSubmit.type = 'submit';
+        confirmSubmit.appendChild(confirm);
+        confirmBtn.appendChild(confirmSubmit);
+        newConfirmText.style.backgroundColor = "red";
+        newConfirmText.style.color = "black";
+        let confirmText = document.createTextNode('Are you sure to delete this from database?');
+        newConfirmText.appendChild(confirmText);
+        newRow.appendChild(newConfirmText);
+        newRow.appendChild(confirmBtn);
+        let referenceNode = currentBtn.parentNode;
+        referenceNode.parentNode.insertBefore(newRow,referenceNode.nextSibling);
+        document.getElementById("deleteThreat").value = currentDeleteData;
+    })
+}

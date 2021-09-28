@@ -1,0 +1,4 @@
+For the newPP page:
+1. Get the privacy principles in the database into a list.
+2. An input to enter privacy principles in the database.
+3. Handle the post and get request of the page.
